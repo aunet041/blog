@@ -1,5 +1,7 @@
 ---
 layout: default
+title: トップページ
+description: プラモデルやフィギュアのレビュー、製作過程、組み立てテクニックを詳しく解説。初心者から上級者まで役立つ情報をお届けします。
 ---
 
 <div class="column-inner">
@@ -14,15 +16,15 @@ layout: default
     </div>
 
     <h2>新着記事</h2>
-    <div class="post-list">
+    <div class="post-list" itemscope itemtype="http://schema.org/Blog">
       {% for post in site.posts limit:6 %}
-      <div class="post-card">
+      <div class="post-card" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
         {% if post.layout == 'review' %}
-          <h3>
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          <h3 itemprop="headline">
+            <a href="{{ post.url | relative_url }}" itemprop="url">{{ post.title }}</a>
           </h3>
           <div class="post-meta">
-            <time datetime="{{ post.date | date_to_xmlschema }}">
+            <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
               {{ post.date | date: "%Y年%m月%d日" }}
             </time>
             {% if post.rating %}
@@ -30,9 +32,9 @@ layout: default
             {% endif %}
           </div>
           {% if post.kit_name %}
-          <div class="kit-info">
-            <p>{{ post.kit_name }}</p>
-            {% if post.maker %}<p class="maker">{{ post.maker }}</p>{% endif %}
+          <div class="kit-info" itemprop="about" itemscope itemtype="http://schema.org/Product">
+            <p itemprop="name">{{ post.kit_name }}</p>
+            {% if post.maker %}<p class="maker" itemprop="manufacturer">{{ post.maker }}</p>{% endif %}
           </div>
           {% endif %}
           {% if post.categories %}
@@ -42,15 +44,19 @@ layout: default
             {% endfor %}
           </div>
           {% endif %}
+          <meta itemprop="author" content="{{ post.author | default: site.author.name }}">
+          <meta itemprop="description" content="{{ post.content | strip_html | truncate: 160 }}">
         {% else %}
-          <h3>
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          <h3 itemprop="headline">
+            <a href="{{ post.url | relative_url }}" itemprop="url">{{ post.title }}</a>
           </h3>
           <div class="post-meta">
-            <time datetime="{{ post.date | date_to_xmlschema }}">
+            <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
               {{ post.date | date: "%Y年%m月%d日" }}
             </time>
           </div>
+          <meta itemprop="author" content="{{ post.author | default: site.author.name }}">
+          <meta itemprop="description" content="{{ post.content | strip_html | truncate: 160 }}">
         {% endif %}
       </div>
       {% endfor %}
@@ -63,3 +69,36 @@ layout: default
     {% endif %}
   </div>
 </div>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Blog",
+  "url": "{{ site.url }}",
+  "name": {{ site.title | jsonify }},
+  "description": {{ site.description | jsonify }},
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ site.title | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}/assets/images/default-ogp.jpg"
+    }
+  },
+  "blogPost": [
+    {% for post in site.posts limit:6 %}
+    {
+      "@type": "BlogPosting",
+      "headline": {{ post.title | jsonify }},
+      "url": "{{ post.url | absolute_url }}",
+      "datePublished": "{{ post.date | date_to_xmlschema }}",
+      "author": {
+        "@type": "Person",
+        "name": {{ post.author | default: site.author.name | jsonify }}
+      },
+      "description": {{ post.content | strip_html | truncate: 160 | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>

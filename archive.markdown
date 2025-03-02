@@ -1,12 +1,13 @@
 ---
 layout: default
-title: アーカイブ
+title: 記事アーカイブ
+description: プラモデル・フィギュアに関する全記事のアーカイブ。レビューや製作例、テクニック解説など、カテゴリー別・年月別で記事を探せます。
 permalink: /archive/
 ---
 
 <div class="column-inner">
   <div class="column-inner-2">
-    <h2>アーカイブ</h2>
+    <h1>記事アーカイブ</h1>
 
     <div class="category-nav">
       {% for category in site.category_names %}
@@ -14,52 +15,98 @@ permalink: /archive/
       {% endfor %}
     </div>
 
-    {% assign postsByYear = site.posts | group_by_exp:"post", "post.date | date: '%Y'" %}
-    {% for year in postsByYear %}
-      <div class="archive-year" id="{{ year.name }}">
-        <h2>{{ year.name }}年</h2>
-        {% assign postsByMonth = year.items | group_by_exp:"post", "post.date | date: '%m'" %}
-        
-        {% for month in postsByMonth %}
-        <div class="archive-month" id="{{ year.name }}-{{ month.name }}">
-          <h3>{{ month.name }}月</h3>
-          <div class="archive-posts">
-            {% for post in month.items %}
-            <div class="archive-post">
-              <div class="archive-post-inner">
-                <div class="post-meta">
-                  <span class="post-date">{{ post.date | date: "%-d日" }}</span>
-                </div>
-                <div class="post-content">
-                  <h4 class="post-title">
-                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                  </h4>
-                  {% if post.categories %}
-                  <div class="post-categories">
-                    {% for cat in post.categories %}
-                      <span class="tag">{{ site.category_names[cat] }}</span>
-                    {% endfor %}
+    <div itemscope itemtype="http://schema.org/Blog">
+      {% assign postsByYear = site.posts | group_by_exp:"post", "post.date | date: '%Y'" %}
+      {% for year in postsByYear %}
+        <div class="archive-year" id="{{ year.name }}">
+          <h2>{{ year.name }}年</h2>
+          {% assign postsByMonth = year.items | group_by_exp:"post", "post.date | date: '%m'" %}
+          
+          {% for month in postsByMonth %}
+          <div class="archive-month" id="{{ year.name }}-{{ month.name }}">
+            <h3>{{ month.name }}月</h3>
+            <div class="archive-posts">
+              {% for post in month.items %}
+              <div class="archive-post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+                <div class="archive-post-inner">
+                  <div class="post-meta">
+                    <span class="post-date">
+                      <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
+                        {{ post.date | date: "%-d日" }}
+                      </time>
+                    </span>
                   </div>
-                  {% endif %}
-                  {% if post.kit_name %}
-                  <div class="kit-info">
-                    {{ post.kit_name }}
-                    {% if post.rating %}
-                    <span class="rating">評価: {{ post.rating }}/5</span>
+                  <div class="post-content">
+                    <h4 class="post-title">
+                      <a href="{{ post.url | relative_url }}" itemprop="url headline">{{ post.title }}</a>
+                    </h4>
+                    {% if post.categories %}
+                    <div class="post-categories">
+                      {% for cat in post.categories %}
+                        <span class="tag">{{ site.category_names[cat] }}</span>
+                      {% endfor %}
+                    </div>
                     {% endif %}
+                    {% if post.kit_name %}
+                    <div class="kit-info">
+                      <span itemprop="about" itemscope itemtype="http://schema.org/Product">
+                        <span itemprop="name">{{ post.kit_name }}</span>
+                      </span>
+                      {% if post.rating %}
+                      <span class="rating">評価: {{ post.rating }}/5</span>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                    <meta itemprop="author" content="{{ post.author | default: site.author.name }}">
+                    <meta itemprop="description" content="{{ post.content | strip_html | truncate: 160 }}">
                   </div>
-                  {% endif %}
                 </div>
               </div>
+              {% endfor %}
             </div>
-            {% endfor %}
           </div>
+          {% endfor %}
         </div>
-        {% endfor %}
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
   </div>
 </div>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "CollectionPage",
+  "url": "{{ page.url | absolute_url }}",
+  "name": "記事アーカイブ | {{ site.title }}",
+  "description": "{{ page.description }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ site.title | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}/assets/images/default-ogp.jpg"
+    }
+  },
+  "mainEntity": {
+    "@type": "Blog",
+    "blogPost": [
+      {% for post in site.posts %}
+      {
+        "@type": "BlogPosting",
+        "headline": {{ post.title | jsonify }},
+        "url": "{{ post.url | absolute_url }}",
+        "datePublished": "{{ post.date | date_to_xmlschema }}",
+        "author": {
+          "@type": "Person",
+          "name": {{ post.author | default: site.author.name | jsonify }}
+        },
+        "description": {{ post.content | strip_html | truncate: 160 | jsonify }}
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  }
+}
+</script>
 
 <style>
 .archive-year {

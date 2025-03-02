@@ -1,18 +1,36 @@
 # Site settings
-title: "プラモデル作成日記"
+title: "素人プラモデル制作日記"
+tagline: "プラモデル・フィギュアのレビューと製作記録"
 email: aunet041@gmail.com
-description: "プラモデルの作成・フィギュアレビューサイト - 初心者による初心者のためのプラモデル作成日記"
+description: "初心者による初心者のためのプラモデル制作日記。プラモデルやフィギュアのレビュー、製作記録を掲載しています。"
 baseurl: ""
-url: ""
+url: "https://example.com" # 本番用URLに変更してください
+author:
+  name: "管理人"
+  email: "aunet041@gmail.com"
+
+# SEO settings
+twitter:
+  username: your-twitter-handle
+  card: summary_large_image
+facebook:
+  app_id: your-fb-app-id
+  publisher: your-fb-page-url
+social:
+  name: 素人プラモデル制作日記
+  links:
+    - https://twitter.com/your-twitter-handle
+    - https://www.facebook.com/your-facebook-page
 
 # Build settings
 theme: jekyll-theme-minimal
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
 
 # Custom settings
 show_downloads: false
-google_analytics:
+google_analytics: # あなたのGoogle AnalyticsのID
 
 # Category Display Names
 category_names:
@@ -32,11 +50,21 @@ collections:
 defaults:
   - scope:
       path: ""
+    values:
+      image: /assets/images/default-ogp.jpg
+  - scope:
+      path: ""
       type: "posts"
     values:
       layout: post
       author: "管理人"
       comments: true
+      image: /assets/images/default-ogp.jpg
+  - scope:
+      path: "categories"
+    values:
+      layout: category
+      image: /assets/images/category-ogp.jpg
 
 # Exclude from processing.
 exclude:

@@ -1,0 +1,11 @@
+---
+layout: none
+---
+User-agent: *
+Allow: /
+Sitemap: {{ site.url }}/sitemap.xml
+
+# プライバシーポリシーや免責事項などの管理ページは除外
+Disallow: /admin/
+Disallow: /login/
+Disallow: /private/

@@ -4,7 +4,7 @@ layout: default
 
 <div class="column-inner">
   <div class="column-inner-2">
-    <h2>{{ site.category_names[page.category] }}</h2>
+    <h1>{{ site.category_names[page.category] }}</h1>
 
     <div class="category-nav">
       {% for category in site.category_names %}
@@ -14,15 +14,15 @@ layout: default
       {% endfor %}
     </div>
 
-    <div class="post-list">
+    <div class="post-list" itemscope itemtype="http://schema.org/CollectionPage">
       {% assign category_posts = site.posts | where_exp: "post", "post.categories contains page.category" %}
       {% for post in category_posts %}
-        <div class="post-card">
-          <h3>
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        <div class="post-card" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+          <h3 itemprop="headline">
+            <a href="{{ post.url | relative_url }}" itemprop="url">{{ post.title }}</a>
           </h3>
           <div class="post-meta">
-            <time datetime="{{ post.date | date_to_xmlschema }}">
+            <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
               {{ post.date | date: "%Y年%m月%d日" }}
             </time>
             {% if post.rating %}
@@ -30,9 +30,9 @@ layout: default
             {% endif %}
           </div>
           {% if post.kit_name %}
-          <div class="kit-info">
-            <p>{{ post.kit_name }}</p>
-            {% if post.maker %}<p class="maker">{{ post.maker }}</p>{% endif %}
+          <div class="kit-info" itemprop="about" itemscope itemtype="http://schema.org/Product">
+            <p itemprop="name">{{ post.kit_name }}</p>
+            {% if post.maker %}<p class="maker" itemprop="manufacturer">{{ post.maker }}</p>{% endif %}
           </div>
           {% endif %}
           {% if post.categories %}
@@ -42,6 +42,8 @@ layout: default
             {% endfor %}
           </div>
           {% endif %}
+          <meta itemprop="author" content="{{ post.author | default: site.author.name }}">
+          <meta itemprop="description" content="{{ post.content | strip_html | truncate: 160 }}">
         </div>
       {% endfor %}
     </div>
@@ -53,6 +55,44 @@ layout: default
     {% endif %}
   </div>
 </div>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "CollectionPage",
+  "url": "{{ page.url | absolute_url }}",
+  "name": "{{ site.category_names[page.category] }} | {{ site.title }}",
+  "description": "{{ site.category_names[page.category] }}に関する記事の一覧です。",
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ site.title | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}/assets/images/default-ogp.jpg"
+    }
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {% assign category_posts = site.posts | where_exp: "post", "post.categories contains page.category" %}
+      {% for post in category_posts %}
+      {
+        "@type": "BlogPosting",
+        "position": {{ forloop.index }},
+        "url": "{{ post.url | absolute_url }}",
+        "headline": {{ post.title | jsonify }},
+        "datePublished": "{{ post.date | date_to_xmlschema }}",
+        "author": {
+          "@type": "Person",
+          "name": {{ post.author | default: site.author.name | jsonify }}
+        },
+        "description": {{ post.content | strip_html | truncate: 160 | jsonify }}
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+  }
+}
+</script>
 
 <style>
 .category-nav .tag.active {
