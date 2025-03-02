@@ -1,0 +1,52 @@
+# Site settings
+title: "プラモデル作成日記"
+email: aunet041@gmail.com
+description: "プラモデルの作成・フィギュアレビューサイト - 初心者による初心者のためのプラモデル作成日記"
+baseurl: ""
+url: ""
+
+# Build settings
+theme: jekyll-theme-minimal
+plugins:
+  - jekyll-feed
+
+# Custom settings
+show_downloads: false
+google_analytics:
+
+# Category Display Names
+category_names:
+  model-examples: "プラモデル作成例"
+  model-techniques: "プラモデル制作テクニック"
+  tool-reviews: "工具・素材レビュー"
+  kit-reviews: "キットレビュー"
+  figure-reviews: "フィギュア"
+
+# Collections
+collections:
+  reviews:
+    output: true
+    permalink: /reviews/:path/
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+      author: "管理人"
+      comments: true
+
+# Exclude from processing.
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/

@@ -1,0 +1,189 @@
+---
+layout: default
+---
+
+<article class="review-content">
+  <h2 class="article-title">{{ page.title }}</h2>
+  
+  <div class="article-meta">
+    <time datetime="{{ page.date | date_to_xmlschema }}">
+      {{ page.date | date: "%Y年%m月%d日" }}
+    </time>
+    {% if page.author %}
+      • 投稿者: {{ page.author }}
+    {% endif %}
+  </div>
+
+  {% if page.categories %}
+  <div class="article-categories">
+    {% for cat in page.categories %}
+      <span class="tag">{{ site.category_names[cat] }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if page.kit_name %}
+  <div class="kit-info-box">
+    <h3>キット情報</h3>
+    <dl>
+      <dt>製品名</dt>
+      <dd>{{ page.kit_name }}</dd>
+      {% if page.maker %}
+      <dt>メーカー</dt>
+      <dd>{{ page.maker }}</dd>
+      {% endif %}
+      {% if page.scale %}
+      <dt>スケール</dt>
+      <dd>{{ page.scale }}</dd>
+      {% endif %}
+      {% if page.price %}
+      <dt>価格</dt>
+      <dd>{{ page.price }}円</dd>
+      {% endif %}
+      {% if page.rating %}
+      <dt>評価</dt>
+      <dd class="rating">{{ page.rating }} / 5</dd>
+      {% endif %}
+    </dl>
+  </div>
+  {% endif %}
+
+  <div class="article-body">
+    {{ content }}
+  </div>
+
+  <div class="article-footer">
+    <div class="post-navigation">
+      <a href="/" class="nav-button">トップページへ戻る</a>
+      <a href="/archive" class="nav-button">バックナンバー一覧</a>
+    </div>
+  </div>
+</article>
+
+<style>
+.review-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.article-title {
+  color: var(--text-dark);
+  font-size: 2em;
+  margin-bottom: 20px;
+  border-bottom: 3px solid var(--main-color);
+  padding-bottom: 10px;
+}
+
+.article-meta {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.kit-info-box {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 4px solid var(--main-color);
+}
+
+.kit-info-box h3 {
+  margin: 0 0 15px 0;
+  color: var(--text-dark);
+}
+
+.kit-info-box dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  margin: 0;
+}
+
+.kit-info-box dt {
+  color: #666;
+  font-weight: bold;
+}
+
+.kit-info-box dd {
+  margin: 0;
+}
+
+.kit-info-box .rating {
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.article-body {
+  line-height: 1.8;
+}
+
+.article-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.article-body h2 {
+  color: var(--text-dark);
+  margin-top: 40px;
+  border-bottom: 2px solid var(--main-color);
+  padding-bottom: 5px;
+}
+
+.article-body h3 {
+  color: var(--text-dark);
+  margin-top: 30px;
+}
+
+.article-body ul {
+  padding-left: 20px;
+}
+
+.article-body li {
+  margin: 5px 0;
+}
+
+.article-categories {
+  margin: 15px 0;
+}
+
+.article-footer {
+  margin-top: 40px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.post-navigation {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.nav-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background: var(--main-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+  background: var(--main-dark);
+  text-decoration: none;
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .review-content {
+    padding: 10px;
+  }
+
+  .article-title {
+    font-size: 1.6em;
+  }
+}
+</style>

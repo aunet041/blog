@@ -1,0 +1,258 @@
+---
+---
+
+/* 基本設定 */
+:root {
+  --main-color: #e74c3c;
+  --main-dark: #c0392b;
+  --accent-color: #e67e22;
+  --text-dark: #2c3e50;
+  --text-light: #ffffff;
+  --bg-light: #f5f5f5;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  line-height: 1.7;
+  margin: 0;
+  padding: 0;
+  background: var(--bg-light);
+}
+
+/* コンテナ */
+#container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ヘッダー */
+.blog-title-outer {
+  background: url('https://res.cloudinary.com/dgldatt9k/image/upload/c_scale,w_1200/v1740883127/%E8%83%8C%E6%99%AF1_rsa20d.jpg') center/cover;
+  width: 100%;
+  padding: 60px 0;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.blog-title-outer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.blog-title-outer-2 {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.blog-title-outer-3 {
+  text-align: center;
+}
+
+.title-description {
+  text-align: center;
+}
+
+#blog-title {
+  margin: 0;
+}
+
+#blog-title a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 2.5em;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#blog-title a:hover {
+  text-decoration: none;
+  color: var(--accent-color);
+}
+
+#blog-description {
+  color: rgba(255, 255, 255, 0.9);
+  margin: 15px 0 0 0;
+  font-size: 1.1em;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* メインコンテンツ */
+#content {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 30px;
+  padding: 0 20px;
+}
+
+.column {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#main {
+  padding: 20px;
+}
+
+/* サイドバー */
+.sidewrapper {
+  margin-bottom: 30px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.sidetitle {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: var(--text-dark);
+  padding: 15px;
+  border-bottom: 2px solid var(--main-color);
+}
+
+.sidebody {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.sidebody:last-child {
+  border-bottom: none;
+}
+
+.sidebody a {
+  color: var(--text-dark);
+  text-decoration: none;
+  display: block;
+  transition: color 0.3s;
+}
+
+.sidebody a:hover {
+  color: var(--main-color);
+}
+
+/* カテゴリーナビ */
+.category-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--main-color);
+  color: var(--text-light);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.tag:hover {
+  background: var(--main-dark);
+  text-decoration: none;
+  color: var(--text-light);
+}
+
+/* 記事カード */
+.post-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.post-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 20px;
+  transition: transform 0.3s ease;
+  border-left: 3px solid var(--main-color);
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+}
+
+.post-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.4em;
+}
+
+.post-card h3 a {
+  color: var(--text-dark);
+  text-decoration: none;
+}
+
+.post-card h3 a:hover {
+  color: var(--main-color);
+}
+
+.post-meta {
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.rating {
+  color: var(--accent-color);
+  margin-left: 10px;
+}
+
+.kit-info {
+  margin: 10px 0;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 4px;
+  border-left: 3px solid var(--main-color);
+}
+
+/* フッター */
+.footer-outer {
+  margin-top: 50px;
+  padding: 20px;
+  background: var(--main-dark);
+  color: var(--text-light);
+  text-align: center;
+}
+
+/* レスポンシブ */
+@media screen and (max-width: 900px) {
+  .blog-title-outer {
+    background-image: url('https://res.cloudinary.com/dgldatt9k/image/upload/c_scale,w_900/v1740883127/%E8%83%8C%E6%99%AF1_rsa20d.jpg');
+    background-position: left center;
+    background-size: cover;
+    padding: 40px 0;
+  }
+
+  #content {
+    grid-template-columns: 1fr;
+  }
+  
+  .blog-title-outer-3 {
+    text-align: center;
+  }
+  
+  #blog-title a {
+    font-size: 2em;
+  }
+
+  #blog-description {
+    font-size: 1em;
+  }
+
+  .category-nav {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% seo %}
+  <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="container">
+    <div class="blog-title-outer">
+      <div class="blog-title-outer-2">
+        <div class="blog-title-outer-3">
+          <div class="title-description">
+            <h1 id="blog-title"><a href="/">{{ site.title }}</a></h1>
+            <div class="blog-description-outer">
+              <p id="blog-description">{{ site.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="content">
+      <div id="main" class="column">
+        <div class="column-inner">
+          {{ content }}
+        </div>
+      </div>
+
+      <div id="sub" class="column">
+        <div class="column-inner">
+          <div class="plugin-categorize sidewrapper">
+            <div class="sidetitlebody">
+              <div class="sidetitle">カテゴリー</div>
+            </div>
+            <div class="side">
+              {% for category in site.category_names %}
+                <div class="sidebody">
+                  <a href="/categories/{{ category[0] }}">{{ category[1] }}</a>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="plugin-archive sidewrapper">
+            <div class="sidetitlebody">
+              <div class="sidetitle">アーカイブ</div>
+            </div>
+            <div class="side">
+              {% assign postsByYearMonth = site.posts | group_by_exp:"post", "post.date | date: '%Y年%m月'" %}
+              {% for yearMonth in postsByYearMonth limit:12 %}
+                <div class="sidebody">
+                  <a href="/archive/#{{ yearMonth.name | replace: "年", "-" | replace: "月", "" }}">
+                    {{ yearMonth.name }} ({{ yearMonth.items | size }})
+                  </a>
+                </div>
+              {% endfor %}
+              {% if site.posts.size > 12 %}
+                <div class="sidebody more-archives">
+                  <a href="/archive">過去の記事をもっと見る</a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-outer">
+    <div class="footer-outer-2">
+      <div id="footer">
+        <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
