@@ -140,6 +140,98 @@ body {
   color: var(--main-color);
 }
 
+/* 人気記事 */
+.plugin-popular {
+  margin-bottom: 30px;
+}
+
+.popular-post {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.popular-post:last-child {
+  border-bottom: none;
+}
+
+.popular-post a {
+  display: block;
+  text-decoration: none;
+  color: var(--text-dark);
+}
+
+.popular-title {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9em;
+}
+
+.popular-views {
+  display: block;
+  font-size: 0.8em;
+  color: #666;
+}
+
+/* Jekyll バナー */
+.plugin-jekyll {
+  margin-bottom: 30px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 3px solid #949ea7;
+}
+
+.jekyll-banner {
+  text-align: center;
+}
+
+.jekyll-banner p {
+  margin: 0 0 8px 0;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.jekyll-link {
+  font-size: 0.8em;
+  color: #777;
+  text-decoration: none;
+}
+
+.jekyll-link:hover {
+  text-decoration: underline;
+}
+
+/* ブログ開設ガイド */
+.plugin-guide {
+  margin-bottom: 30px;
+  padding: 15px;
+  background: #fff3e0;
+  border-radius: 8px;
+  border-left: 3px solid var(--accent-color);
+}
+
+.guide-banner {
+  text-align: center;
+}
+
+.guide-link {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.guide-link:hover {
+  text-decoration: underline;
+}
+
+.guide-note {
+  font-size: 0.8em;
+  color: #666;
+}
+
 /* カテゴリーナビ */
 .category-nav {
   display: flex;
@@ -254,5 +346,32 @@ body {
 
   .category-nav {
     justify-content: center;
+  }
+
+  .plugin-popular,
+  .plugin-jekyll,
+  .plugin-guide {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 記事ページでのヘッダー表示を最適化 */
+  .review-content ~ .blog-title-outer,
+  .archive-content ~ .blog-title-outer,
+  .category-content ~ .blog-title-outer {
+    padding: 20px 0;
+  }
+
+  .review-content ~ .blog-title-outer #blog-description,
+  .archive-content ~ .blog-title-outer #blog-description,
+  .category-content ~ .blog-title-outer #blog-description {
+    display: none;
+  }
+
+  .review-content ~ .blog-title-outer #blog-title a,
+  .archive-content ~ .blog-title-outer #blog-title a,
+  .category-content ~ .blog-title-outer #blog-title a {
+    font-size: 1.5em;
   }
 }

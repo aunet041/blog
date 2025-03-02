@@ -2,57 +2,59 @@
 layout: default
 ---
 
-<div class="column-inner">
-  <div class="column-inner-2">
-    <h1>{{ site.category_names[page.category] }}</h1>
+<div class="category-content">
+  <div class="column-inner">
+    <div class="column-inner-2">
+      <h1>{{ site.category_names[page.category] }}</h1>
 
-    <div class="category-nav">
-      {% for category in site.category_names %}
-        <a href="/categories/{{ category[0] }}" class="tag{% if page.category == category[0] %} active{% endif %}">
-          {{ category[1] }}
-        </a>
-      {% endfor %}
-    </div>
+      <div class="category-nav">
+        {% for category in site.category_names %}
+          <a href="/categories/{{ category[0] }}" class="tag{% if page.category == category[0] %} active{% endif %}">
+            {{ category[1] }}
+          </a>
+        {% endfor %}
+      </div>
 
-    <div class="post-list" itemscope itemtype="http://schema.org/CollectionPage">
-      {% assign category_posts = site.posts | where_exp: "post", "post.categories contains page.category" %}
-      {% for post in category_posts %}
-        <div class="post-card" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-          <h3 itemprop="headline">
-            <a href="{{ post.url | relative_url }}" itemprop="url">{{ post.title }}</a>
-          </h3>
-          <div class="post-meta">
-            <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
-              {{ post.date | date: "%Y年%m月%d日" }}
-            </time>
-            {% if post.rating %}
-            <span class="rating">評価: {{ post.rating }}/5</span>
+      <div class="post-list" itemscope itemtype="http://schema.org/CollectionPage">
+        {% assign category_posts = site.posts | where_exp: "post", "post.categories contains page.category" %}
+        {% for post in category_posts %}
+          <div class="post-card" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+            <h3 itemprop="headline">
+              <a href="{{ post.url | relative_url }}" itemprop="url">{{ post.title }}</a>
+            </h3>
+            <div class="post-meta">
+              <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
+                {{ post.date | date: "%Y年%m月%d日" }}
+              </time>
+              {% if post.rating %}
+              <span class="rating">評価: {{ post.rating }}/5</span>
+              {% endif %}
+            </div>
+            {% if post.kit_name %}
+            <div class="kit-info" itemprop="about" itemscope itemtype="http://schema.org/Product">
+              <p itemprop="name">{{ post.kit_name }}</p>
+              {% if post.maker %}<p class="maker" itemprop="manufacturer">{{ post.maker }}</p>{% endif %}
+            </div>
             {% endif %}
+            {% if post.categories %}
+            <div class="post-categories">
+              {% for cat in post.categories %}
+                <span class="tag">{{ site.category_names[cat] }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+            <meta itemprop="author" content="{{ post.author | default: site.author.name }}">
+            <meta itemprop="description" content="{{ post.content | strip_html | truncate: 160 }}">
           </div>
-          {% if post.kit_name %}
-          <div class="kit-info" itemprop="about" itemscope itemtype="http://schema.org/Product">
-            <p itemprop="name">{{ post.kit_name }}</p>
-            {% if post.maker %}<p class="maker" itemprop="manufacturer">{{ post.maker }}</p>{% endif %}
-          </div>
-          {% endif %}
-          {% if post.categories %}
-          <div class="post-categories">
-            {% for cat in post.categories %}
-              <span class="tag">{{ site.category_names[cat] }}</span>
-            {% endfor %}
-          </div>
-          {% endif %}
-          <meta itemprop="author" content="{{ post.author | default: site.author.name }}">
-          <meta itemprop="description" content="{{ post.content | strip_html | truncate: 160 }}">
-        </div>
-      {% endfor %}
-    </div>
+        {% endfor %}
+      </div>
 
-    {% if category_posts.size == 0 %}
-    <div class="no-posts">
-      <p>このカテゴリーにはまだ記事がありません。</p>
+      {% if category_posts.size == 0 %}
+      <div class="no-posts">
+        <p>このカテゴリーにはまだ記事がありません。</p>
+      </div>
+      {% endif %}
     </div>
-    {% endif %}
   </div>
 </div>
 
@@ -93,15 +95,3 @@ layout: default
   }
 }
 </script>
-
-<style>
-.category-nav .tag.active {
-  background: var(--main-dark);
-}
-
-.no-posts {
-  text-align: center;
-  padding: 40px;
-  color: #666;
-}
-</style>
