@@ -36,16 +36,6 @@ body {
   position: relative;
 }
 
-.blog-title-outer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-}
-
 .blog-title-outer-2 {
   max-width: 1200px;
   margin: 0 auto;
@@ -325,7 +315,7 @@ body {
     background-image: url('https://res.cloudinary.com/dgldatt9k/image/upload/c_scale,w_900/v1740883127/%E8%83%8C%E6%99%AF1_rsa20d.jpg');
     background-position: left center;
     background-size: cover;
-    padding: 40px 0;
+    padding: 20px 0;
   }
 
   #content {
@@ -337,11 +327,12 @@ body {
   }
   
   #blog-title a {
-    font-size: 2em;
+    font-size: 1.5em;
   }
 
   #blog-description {
     font-size: 1em;
+    display: none;
   }
 
   .category-nav {
@@ -354,24 +345,5 @@ body {
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
-  }
-
-  /* 記事ページでのヘッダー表示を最適化 */
-  .review-content ~ .blog-title-outer,
-  .archive-content ~ .blog-title-outer,
-  .category-content ~ .blog-title-outer {
-    padding: 20px 0;
-  }
-
-  .review-content ~ .blog-title-outer #blog-description,
-  .archive-content ~ .blog-title-outer #blog-description,
-  .category-content ~ .blog-title-outer #blog-description {
-    display: none;
-  }
-
-  .review-content ~ .blog-title-outer #blog-title a,
-  .archive-content ~ .blog-title-outer #blog-title a,
-  .category-content ~ .blog-title-outer #blog-title a {
-    font-size: 1.5em;
   }
 }
