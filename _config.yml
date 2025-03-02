@@ -1,8 +1,8 @@
 # Site settings
-title: "素人プラモデル制作日記"
+title: "素人プラモデル作成日記"
 tagline: "プラモデル・フィギュアのレビューと製作記録"
 email: aunet041@gmail.com
-description: "初心者による初心者のためのプラモデル制作日記。プラモデルやフィギュアのレビュー、製作記録を掲載しています。"
+description: "プラモデルやフィギュアのレビュー、製作過程、組み立てテクニックなどを詳しく解説。プラモの製作例や工具のレビューも掲載しています。"
 baseurl: ""
 url: "https://example.com" # 本番用URLに変更してください
 author:
@@ -17,7 +17,7 @@ facebook:
   app_id: your-fb-app-id
   publisher: your-fb-page-url
 social:
-  name: 素人プラモデル制作日記
+  name: 素人プラモデル作成日記
   links:
     - https://twitter.com/your-twitter-handle
     - https://www.facebook.com/your-facebook-page
@@ -37,8 +37,8 @@ category_names:
   model-examples: "プラモデル作成例"
   model-techniques: "プラモデル制作テクニック"
   tool-reviews: "工具・素材レビュー"
-  kit-reviews: "キットレビュー"
-  figure-reviews: "フィギュア"
+  kit-reviews: "プラモ レビュー"
+  figure-reviews: "フィギュア レビュー"
 
 # Collections
 collections:

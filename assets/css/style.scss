@@ -239,6 +239,7 @@ body {
   font-size: 0.9em;
   text-decoration: none;
   transition: background-color 0.3s;
+  text-align: center;
 }
 
 .tag:hover {
@@ -336,7 +337,16 @@ body {
   }
 
   .category-nav {
-    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    margin: 15px auto;
+    max-width: 300px;
+  }
+
+  .tag {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .plugin-popular,

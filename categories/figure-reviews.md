@@ -1,6 +1,6 @@
 ---
 layout: category
-title: フィギュア
+title: フィギュア レビュー
 category: figure-reviews
 permalink: /categories/figure-reviews/
 ---
