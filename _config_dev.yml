@@ -1,0 +1,6 @@
+# 開発環境用設定
+url: "http://localhost:4001"
+baseurl: ""  # 開発環境ではベースURLを空にする
+livereload: true
+incremental: true
+environment: development

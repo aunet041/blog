@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  jekyll:
+    image: jekyll/jekyll:4
+    command: >
+      jekyll serve 
+      --config _config.yml,_config_dev.yml 
+      --livereload 
+      --host 0.0.0.0
+    ports:
+      - 4001:4000
+      - 35729:35729
+    volumes:
+      - .:/srv/jekyll
+      - ./vendor/bundle:/usr/local/bundle
+    environment:
+      - JEKYLL_ENV=development
